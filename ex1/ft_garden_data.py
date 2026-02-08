@@ -12,6 +12,14 @@ class Plant:
         The age of the plant in days.
     """
     def __init__(self, name: str, height: int, age: int) -> None:
+        """
+        Initialize the plant with name, age, and height.
+
+        Args:
+            name (str): The name of the plant.
+            age (int): The age of the plant in days.
+            height (int): The height of the plant in cm.
+        """
         self.name: str = name
         self.height: int = height
         self.age: int = age

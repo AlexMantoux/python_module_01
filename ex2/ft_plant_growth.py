@@ -12,22 +12,40 @@ class Plant:
         The age of the plant in days.
     """
     def __init__(self, name: str, height: int, age: int) -> None:
+        """
+        Initialize the plant with name, age, and height.
+
+        Args:
+            name (str): The name of the plant.
+            age (int): The age of the plant in days.
+            height (int): The height of the plant in cm.
+        """
         self.name: str = name
         self.height: int = height
-        self.age: int = age
+        self.age_days: int = age
+        self.last_height: int = height
+        self.last_age_days: int = age
 
-    def grow(self, n: int) -> None:
+    def display(self):
+        """
+        Display the plant's details.
+        """
+        print(f"{self.name.title()}: {self.height}cm,\
+ {self.age_days} days old")
+
+    def grow(self, size: int) -> None:
         """
         Increase the plant's height by a given amount.
 
         Parameters
         ----------
-        n : int
+        size : int
             The number of centimeters by which the plant should grow.
         """
-        self.height += n
+        self.last_height = self.height
+        self.height += size
 
-    def increase_age(self, n) -> None:
+    def age(self, days: int) -> None:
         """
         Increase the plant's age by a given number of days.
 
@@ -36,28 +54,28 @@ class Plant:
         n : int
             The number of days to add to the plant's age.
         """
-        self.age += n
+        self.last_age_days = self.age_days
+        self.age_days += days
 
+    def get_info(self) -> None:
+        """
+        Display detailed information about a plant, including its growth
+        this week.
 
-def get_info(plant) -> None:
-    """
-    Display detailed information about a plant, including its growth this week.
-
-    Parameters
-    ----------
-    plant : Plant
-        The Plant object whose information is to be displayed.
-    """
-    print(plant.name + ": ",
-          plant.height, "cm, ", plant.age, " days old", sep="")
-    print("Growth this week: +", 6, "cm", sep="")
+        Parameters
+        ----------
+        plant : Plant
+            The Plant object whose information is to be displayed.
+        """
+        print(f"Growth this week: +{self.height - self.last_height}cm")
 
 
 if __name__ == "__main__":
     rose = Plant("Rose", 25, 30)
     print("=== Day 1 ===")
-    get_info(rose)
-    rose.grow(6)
-    rose.increase_age(6)
+    rose.display()
+    rose.grow(8)
+    rose.age(6)
     print("=== Day 7 ===")
-    get_info(rose)
+    rose.display()
+    rose.get_info()
