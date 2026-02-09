@@ -28,7 +28,7 @@ class Plant:
         self.last_age_days: int = age
         print(f"Created: {self.name} ({self.height}cm, {self.age_days} days)")
 
-    def display(self):
+    def display(self) -> None:
         """
         Display the plant's details.
         """
