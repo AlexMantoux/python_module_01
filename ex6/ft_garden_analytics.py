@@ -163,22 +163,35 @@ class Vegetable(Plant):
         print(f"{self.name} is rich in {self.nutritional_value}")
 
 
+class Garden:
+
+    def __init__(self, name: str) -> None:
+        self.name: str = name
+        self.garden: list[Plant] = []
+
+    def add_plant(self, plant: Plant) -> None:
+        self.garden.append(plant)
+        print(f"Added {plant.name} to {self.name}'s garden")
+
+    def display_garden(self):
+        for plant in self.garden:
+            print(f"{plant}")
+
+class GardenManager:
+
+    def __init__(self, garden: Garden):
+        self.garden_list: list[Garden] = []
+
 if __name__ == "__main__":
 
     rose = Flower("Rose", 25, 30, "red")
-    oak = Tree("Oak", 500, 1850, 50)
+    oak = Tree("Oak tree", 500, 1850, 50)
     tomato = Vegetable("Tomato", 80, 90, "summer", "vitamin C")
+    alice = GardenManager("Alice")
 
-    print("=== Garden Plant Types ===")
+    print("=== Garden Management System Demo ===")
     print()
 
-    rose.display()
-    rose.bloom()
-    print()
-
-    oak.display()
-    oak.produce_shade()
-    print()
-
-    tomato.display()
-    tomato.get_nutri_info()
+    alice.add_plant(rose)
+    alice.add_plant(oak)
+    alice.add_plant(tomato)
