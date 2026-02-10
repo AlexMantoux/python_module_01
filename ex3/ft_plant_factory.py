@@ -76,7 +76,7 @@ class PlantFactory:
     """
     A class to represent q factory for create plant.
     """
-    factoryPlant = 0
+    factoryPlant: int = 0
 
     def create_plant(val: tuple[str, int, int]) -> Plant:
         """
@@ -86,8 +86,11 @@ class PlantFactory:
             val tuple[str, int, int]: Table of values
         """
         PlantFactory.factoryPlant += 1
-        name, size, age = val
-        return Plant(name, size, age)
+        name: str = ""
+        height: int = 0
+        age: int = 0
+        name, height, age = val
+        return Plant(name, height, age)
 
 
 if __name__ == "__main__":
