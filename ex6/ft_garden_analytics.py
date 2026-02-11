@@ -73,7 +73,12 @@ class Garden:
             if isinstance(plant, PrizeFlower):
                 line += f", Prize points: {plant.prize_point}"
             print(line)
-
+        stats = GardenManager.GardenStats(self)
+        types = stats.plant_type()
+        print()
+        print(f"Plants added: {len(self.plants)}, Total growth: {self.total_growth}cm")
+        print(f"Plant types: {types['regular']} regular, {types['flowering']} flowering, {types['prize']} prize flowers")
+        print()
 
 class GardenManager:
 
@@ -87,12 +92,12 @@ class GardenManager:
             self.plants = garden.plants
         
         def plant_type(self) -> dict[str, int]:
-            types_count : dict[str, int] = {"regular": 0, "flowering": 0, "Prize": 0}
+            types_count : dict[str, int] = {"regular": 0, "flowering": 0, "prize": 0}
             for plant in self.plants:
-                if isinstance(plant, FloweringPlant):
-                    types_count["flowering"] += 1
-                elif isinstance(plant, PrizeFlower):
+                if isinstance(plant, PrizeFlower):
                     types_count["prize"] += 1
+                elif isinstance(plant, FloweringPlant):
+                    types_count["flowering"] += 1
                 else:
                     types_count["regular"] += 1
             return types_count
