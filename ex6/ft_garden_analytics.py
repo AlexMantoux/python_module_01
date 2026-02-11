@@ -25,7 +25,6 @@ class Plant:
         self.height += growValue
         print(f"{self.name} grew {growValue}cm")
 
-    
 
 
 class FloweringPlant(Plant):
@@ -47,6 +46,7 @@ class Garden:
     def __init__(self, name: str) -> None:
         self.name: str = name
         self.plants: list[Plant | FloweringPlant | PrizeFlower] = []
+        self.total_growth = 0
 
     def add_plant(self, plant: Plant) -> None:
         self.plants.append(plant)
@@ -60,12 +60,19 @@ class Garden:
         print(f"{self.name} is helping all plants grow...")
         for plant in self.plants:
             plant.grow(growValue)
+            self.total_growth += growValue
 
     def garden_report(self):
         print(f"=== {self.name.capitalize()}'s Garden Report ===")
         print("Plants in garden:")
+        
         for plant in self.plants:
-            print(f"- {plant.name.capitalize()}: {plant.height}cm")
+            line = f"- {plant.name.capitalize()}: {plant.height}cm"
+            if isinstance(plant, FloweringPlant):
+                line += f", {plant.color} flowers (blooming)"
+            if isinstance(plant, PrizeFlower):
+                line += f", Prize points: {plant.prize_point}"
+            print(line)
 
 
 class GardenManager:
@@ -75,23 +82,58 @@ class GardenManager:
 
     class GardenStats:
 
-        def __init__(self, plants : list[Plant]):
-            self.plants = plants
+        def __init__(self, garden : Garden):
+            self.garden = garden
+            self.plants = garden.plants
         
         def plant_type(self) -> dict[str, int]:
             types_count : dict[str, int] = {"regular": 0, "flowering": 0, "Prize": 0}
             for plant in self.plants:
-                if isinstance(plant, Plant):
-                    types_count["regular"] += 1
                 if isinstance(plant, FloweringPlant):
                     types_count["flowering"] += 1
-                else:
+                elif isinstance(plant, PrizeFlower):
                     types_count["prize"] += 1
+                else:
+                    types_count["regular"] += 1
             return types_count
+        
+        def total_plants(self) -> int:
+            return len(self.plants)
+        
+        def total_growth(self) -> int:
+            return self.garden.total_growth
+                
+        def calculate_score(self) -> int:
+            score = 0
+            for plant in self.plants:
+                score += plant.height
+                if isinstance(plant, PrizeFlower):
+                    score += plant.prize_point
+            score += len(self.plants) * 10
+            return score
 
-    @staticmethod
     def stats_display(self):
         ...
+
+    @staticmethod
+    def validate_heights() -> bool:
+        for garden in GardenManager.gardens:
+            for plant in garden.plants:
+                if plant.height <= 0:
+                    return False
+        return True
+    
+    @classmethod
+    def stats_display(cls):
+        print(f"Height validation test: {cls.validate_heights()}")
+        print("Garden scores - ", end="")
+        scores = []
+        for garden in cls.gardens:
+            stats = cls.GardenStats(garden)
+            score = stats.calculate_score()
+            scores.append(f"{garden.name.capitalize()}: {score}")
+        print(", ".join(scores))
+        print(f"Total gardens managed: {cls.handleGardens}")
 
     @classmethod
     def create_garden_network(cls, gardenList : list[Garden]):
@@ -101,9 +143,12 @@ class GardenManager:
 
 
 def main() -> None:
+
+    bob = Garden("Bob")
+    alice = Garden("Alice")
+    GardenManager.create_garden_network([alice, bob])
     print("=== Garden Management System Demo ===")
     print()
-    alice = Garden("Alice")
     alice.add_plant(Plant("oak tree", 100))
     alice.add_plant(FloweringPlant("rose", 25, "red"))
     alice.add_plant(PrizeFlower("sunflower", 50, "yellow", 10))
@@ -111,7 +156,7 @@ def main() -> None:
     alice.help_plant(1)
     print()
     alice.garden_report()
-
+    GardenManager.stats_display()
 
 if __name__ == "__main__":
     main()
