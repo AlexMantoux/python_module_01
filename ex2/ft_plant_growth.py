@@ -23,59 +23,35 @@ class Plant:
         self.name: str = name
         self.height: int = height
         self.age_days: int = age
-        self.last_height: int = height
-        self.last_age_days: int = age
-
-    def display(self):
-        """
-        Display the plant's details.
-        """
-        print(f"{self.name.title()}: {self.height}cm,\
- {self.age_days} days old")
-
-    def grow(self, size: int) -> None:
-        """
-        Increase the plant's height by a given amount.
-
-        Parameters
-        ----------
-        size : int
-            The number of centimeters by which the plant should grow.
-        """
-        self.last_height = self.height
-        self.height += size
-
-    def age(self, days: int) -> None:
-        """
-        Increase the plant's age by a given number of days.
-
-        Parameters
-        ----------
-        n : int
-            The number of days to add to the plant's age.
-        """
-        self.last_age_days = self.age_days
-        self.age_days += days
 
     def get_info(self) -> None:
         """
-        Display detailed information about a plant, including its growth
-        this week.
-
-        Parameters
-        ----------
-        plant : Plant
-            The Plant object whose information is to be displayed.
+        Display basic information about plant.
         """
-        print(f"Growth this week: +{self.height - self.last_height}cm")
+        print(f"{self.name.capitalize()}: {self.height}cm, "
+              f"{self.age_days} days old")
+
+    def grow(self) -> None:
+        """
+        Increase the plant's height by 1.
+        """
+        self.height += 1
+
+    def age(self) -> None:
+        """
+        Increase the plant's age by 1.
+        """
+        self.age_days += 1
 
 
 if __name__ == "__main__":
-    rose = Plant("Rose", 25, 30)
+    days: int = 6
+    rose: Plant = Plant("Rose", 25, 30)
     print("=== Day 1 ===")
-    rose.display()
-    rose.grow(8)
-    rose.age(6)
-    print("=== Day 7 ===")
-    rose.display()
     rose.get_info()
+    for _ in range(days):
+        rose.grow()
+        rose.age()
+    print("=== Day 7 ===")
+    rose.get_info()
+    print(f"Growth this week: +{days}cm")
