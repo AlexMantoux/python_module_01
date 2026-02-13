@@ -24,21 +24,22 @@ class Plant:
         self.height: int = height
         self.age: int = age
 
-
-def display_plant(plant: Plant) -> None:
-    """
-    Display basic information about a plant.
-
-    Parameters
-    ----------
-    plant : Plant
-        The Plant object to display.
-    """
-    print(f"{plant.name}: {plant.height}cm, {plant.age} days old")
+    def display(self) -> None:
+        """
+        Display basic information about plant.
+        """
+        print(f"{self.name.capitalize()}: {self.height}cm, "
+              f"{self.age} days old")
 
 
 if __name__ == "__main__":
+
+    plants: list[Plant] = [
+        Plant("rose", 25, 30),
+        Plant("sunFlower", 80, 45),
+        Plant("cactus", 15, 120)
+        ]
+
     print("=== Garden Plant Registry ===")
-    display_plant(Plant("Rose", 25, 30))
-    display_plant(Plant("SunFlower", 80, 45))
-    display_plant(Plant("Cactus", 15, 120))
+    for plant in plants:
+        plant.display()
