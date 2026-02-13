@@ -8,7 +8,7 @@ class Plant:
         The name of the plant.
     height : int
         The height of the plant in centimeters.
-    age : int
+    age_days : int
         The age of the plant in days.
     """
     def __init__(self, name: str, height: int, age: int) -> None:
