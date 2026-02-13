@@ -18,23 +18,23 @@ class Plant:
 
         Args:
             name (str): The name of the plant.
-            age (int): The age of the plant in days.
             height (int): The height of the plant in cm.
+            age (int): The age of the plant in days.
         """
         self.name: str = name
         self.height: int = height
-        self.age_days: int = age
+        self.age: int = age
 
     def display(self) -> None:
         """
         Display the plant's details.
         """
-        print(f"{self.height}cm, {self.age_days} days old", end="")
+        print(f"{self.height}cm, {self.age} days old", end="")
 
 
 class Flower(Plant):
     """
-    Represents a flower with a name, height, age and color. 
+    Represents a flower with a name, height, age and color. Inherit from Plant.
 
     Attributes
     ----------
@@ -64,7 +64,7 @@ class Flower(Plant):
         """
         Display the plant's details.
         """
-        print(f"{self.name} (Flower): ", end="")
+        print(f"{self.name.capitalize()} (Flower): ", end="")
         super().display()
         print(f", {self.color} color")
 
@@ -72,11 +72,13 @@ class Flower(Plant):
         """
         simulate and display flower blooming
         """
-        print(f"{self.name} is blooming beautifully!")
-    
+        print(f"{self.name.capitalize()} is blooming beautifully!")
+
+
 class Tree(Plant):
     """
-    Represents a tree with a name, height, age and trunk_diameter. 
+    Represents a tree with a name, height, age and trunk_diameter.
+    Inherit from Plant.
 
     Attributes
     ----------
@@ -89,7 +91,13 @@ class Tree(Plant):
     trunk_diameter : int
         The trunk diameter of the tree.
     """
-    def __init__(self, name: str, height: int, age: int, trunk_diameter: int) -> None:
+    def __init__(
+            self,
+            name: str,
+            height: int,
+            age: int,
+            trunk_diameter: int
+            ) -> None:
         """
         Initialize the tree with name, height, age and trunk diameter.
 
@@ -106,7 +114,7 @@ class Tree(Plant):
         """
         Display the plant's details.
         """
-        print(f"{self.name} (Tree): ", end="")
+        print(f"{self.name.capitalize()} (Tree): ", end="")
         super().display()
         print(f", {self.trunk_diameter}cm diameter")
 
@@ -114,11 +122,14 @@ class Tree(Plant):
         """
         Compute and display the shade provide by the tree
         """
-        print(f"{self.name} provides {int(self.height * 0.156)} square meters of shade")
+        print(f"{self.name.capitalize()} provides {int(self.height * 0.156)} \
+square meters of shade")
+
 
 class Vegetable(Plant):
     """
-    Represents a vegetable with a name, height, age, harvest season and nutritional value. 
+    Represents a vegetable with a name, height, age, harvest season
+    and nutritional value. Inherit from Plant.
 
     Attributes
     ----------
@@ -133,9 +144,17 @@ class Vegetable(Plant):
     nutritional_value : str
         The nutritional value of the vegetable.
     """
-    def __init__(self, name: str, height: int, age: int, harvest_season: str, nutritional_value: str) -> None:
+    def __init__(
+            self,
+            name: str,
+            height: int,
+            age: int,
+            harvest_season: str,
+            nutritional_value: str
+            ) -> None:
         """
-        Initialize the vegetable with name, height, age, harvest season and nutritional value.
+        Initialize the vegetable with name, height, age, harvest season
+        and nutritional value.
 
         Args:
             name (str): The name of the vegetable.
@@ -152,22 +171,22 @@ class Vegetable(Plant):
         """
         Display the plant's details.
         """
-        print(f"{self.name} (Vegetable): ", end="")
+        print(f"{self.name.capitalize()} (Vegetable): ", end="")
         super().display()
         print(f", {self.harvest_season} harvest")
-    
-    def get_nutri_info(self) -> None:
+
+    def get_nutritional_info(self) -> None:
         """
         Display nutritional value
         """
-        print(f"{self.name} is rich in {self.nutritional_value}")
+        print(f"{self.name.capitalize()} is rich in {self.nutritional_value}")
 
 
 if __name__ == "__main__":
 
-    rose = Flower("Rose", 25, 30, "red")
-    oak = Tree("Oak", 500, 1850, 50)
-    tomato = Vegetable("Tomato", 80, 90, "summer", "vitamin C")
+    rose: Plant = Flower("rose", 25, 30, "red")
+    oak: Plant = Tree("oak", 500, 1850, 50)
+    tomato: Plant = Vegetable("tomato", 80, 90, "summer", "vitamin C")
 
     print("=== Garden Plant Types ===")
     print()
@@ -181,4 +200,4 @@ if __name__ == "__main__":
     print()
 
     tomato.display()
-    tomato.get_nutri_info()
+    tomato.get_nutritional_info()
