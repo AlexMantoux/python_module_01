@@ -23,7 +23,7 @@ class Plant:
 
     def grow(self, growValue: int):
         self.height += growValue
-        print(f"{self.name} grew {growValue}cm")
+        print(f"{self.name.capitalize()} grew {growValue}cm")
 
 
 class FloweringPlant(Plant):
@@ -31,6 +31,11 @@ class FloweringPlant(Plant):
     def __init__(self, name: str, height: int, color: str) -> None:
         super().__init__(name, height)
         self.color: str = color
+
+    def bloom(self, boolean: bool) -> str:
+        if boolean:
+            return "blooming"
+        return "not blooming"
 
 
 class PrizeFlower(FloweringPlant):
@@ -57,7 +62,7 @@ class Garden:
         print(f"Added {plant.name.capitalize()} to {self.name}'s garden")
 
     def display_garden(self) -> None:
-        for plant in self.garden:
+        for plant in self.plants:
             print(f"{plant}")
 
     def help_plant(self, growValue: int) -> None:
@@ -71,10 +76,11 @@ class Garden:
         print("Plants in garden:")
         for plant in self.plants:
             line = f"- {plant.name.capitalize()}: {plant.height}cm"
-            if isinstance(plant, FloweringPlant):
-                line += f", {plant.color} flowers (blooming)"
             if isinstance(plant, PrizeFlower):
+                line += f", {plant.color} flowers ({plant.bloom(True)})"
                 line += f", Prize points: {plant.prize_point}"
+            elif isinstance(plant, FloweringPlant):
+                line += f", {plant.color} flowers ({plant.bloom(True)})"
             print(line)
         stats = GardenManager.GardenStats(self)
         types = stats.plant_type()
