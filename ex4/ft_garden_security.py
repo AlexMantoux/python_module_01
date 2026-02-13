@@ -8,32 +8,32 @@ class SecurePlant:
 
         Args:
             name (str): The name of the plant.
-            age (int): The age of the plant in days.
             height (int): The height of the plant in cm.
+            age (int): The age of the plant in days.
         """
         self.name: str = name
-        self.__height: int = height
-        self.__age_days: int = age
+        self._height: int = height
+        self._age: int = age
         print(f"Plant created: {self.name}")
 
     def display(self) -> None:
         """
         Display the plant's details.
         """
-        print(f"Current plant: {self.name} ({self.get_height()}cm, \
-{self.get_age()} days)")
+        print(f"Current plant: {self.name} ({self.get_height()}cm, "
+              f"{self.get_age()} days)")
 
     def get_height(self) -> int:
         """
         Return the current height value in centimeters.
         """
-        return self.__height
+        return self._height
 
     def get_age(self) -> int:
         """
         Return the current age value in days.
         """
-        return self.__age_days
+        return self._age
 
     def set_height(self, height: int) -> None:
         """
@@ -44,10 +44,9 @@ class SecurePlant:
             or equal to 0.
         """
         if height >= 0:
-            self.__height = height
+            self._height = height
             print(f"Height updated: {height}cm [OK]")
         else:
-            print()
             print(f"Invalid operation attempted: height {height}cm [REJECTED]")
             print("Security: Negative height rejected")
 
@@ -60,17 +59,16 @@ class SecurePlant:
             or equal to 0.
         """
         if age >= 0:
-            self.__age_days = age
+            self._age = age
             print(f"Age updated: {age} days [OK]")
         else:
-            print()
-            print("Invalid operation attempted: age {age} days [REJECTED]")
+            print(f"Invalid operation attempted: age {age} days [REJECTED]")
             print("Security: Negative age rejected")
 
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
-    rose = SecurePlant("Rose", 6, 30)
+    rose = SecurePlant("Rose", 1, 1)
     rose.set_height(25)
     rose.set_age(30)
     print()
