@@ -20,26 +20,30 @@ class Plant:
         """
         self.name: str = name
         self.height: int = height
-    
-    def grow(self, growValue : int):
+
+    def grow(self, growValue: int):
         self.height += growValue
         print(f"{self.name} grew {growValue}cm")
 
 
-
 class FloweringPlant(Plant):
-    
-    def __init__(self, name : str, height : int, color : str) -> None:
-        super().__init__(name, height)
-        self.color : str = color
 
+    def __init__(self, name: str, height: int, color: str) -> None:
+        super().__init__(name, height)
+        self.color: str = color
 
 
 class PrizeFlower(FloweringPlant):
 
-    def __init__(self, name : str, height : int, color : str, prize_point : int) -> None:
+    def __init__(
+            self,
+            name: str,
+            height: int,
+            color: str,
+            prize_point: int
+            ) -> None:
         super().__init__(name, height, color)
-        self.prize_point : int = prize_point
+        self.prize_point: int = prize_point
 
 
 class Garden:
@@ -56,7 +60,7 @@ class Garden:
         for plant in self.garden:
             print(f"{plant}")
 
-    def help_plant(self, growValue : int) -> None:
+    def help_plant(self, growValue: int) -> None:
         print(f"{self.name} is helping all plants grow...")
         for plant in self.plants:
             plant.grow(growValue)
@@ -65,7 +69,6 @@ class Garden:
     def garden_report(self):
         print(f"=== {self.name.capitalize()}'s Garden Report ===")
         print("Plants in garden:")
-        
         for plant in self.plants:
             line = f"- {plant.name.capitalize()}: {plant.height}cm"
             if isinstance(plant, FloweringPlant):
@@ -76,23 +79,31 @@ class Garden:
         stats = GardenManager.GardenStats(self)
         types = stats.plant_type()
         print()
-        print(f"Plants added: {len(self.plants)}, Total growth: {self.total_growth}cm")
-        print(f"Plant types: {types['regular']} regular, {types['flowering']} flowering, {types['prize']} prize flowers")
+        print(f"Plants added: {len(self.plants)}, "
+              f"Total growth: {self.total_growth}cm")
+        print(f"Plant types: {types['regular']} regular, "
+              f"{types['flowering']} flowering, "
+              f"{types['prize']} prize flowers")
         print()
+
 
 class GardenManager:
 
-    gardens : list[Garden] = []
-    handleGardens : int = 0
+    gardens: list[Garden] = []
+    handleGardens: int = 0
 
     class GardenStats:
 
-        def __init__(self, garden : Garden):
+        def __init__(self, garden: Garden):
             self.garden = garden
             self.plants = garden.plants
-        
+
         def plant_type(self) -> dict[str, int]:
-            types_count : dict[str, int] = {"regular": 0, "flowering": 0, "prize": 0}
+            types_count: dict[str, int] = {
+                "regular": 0,
+                "flowering": 0,
+                "prize": 0
+                }
             for plant in self.plants:
                 if isinstance(plant, PrizeFlower):
                     types_count["prize"] += 1
@@ -101,13 +112,13 @@ class GardenManager:
                 else:
                     types_count["regular"] += 1
             return types_count
-        
+
         def total_plants(self) -> int:
             return len(self.plants)
-        
+
         def total_growth(self) -> int:
             return self.garden.total_growth
-                
+
         def calculate_score(self) -> int:
             score = 0
             for plant in self.plants:
@@ -117,9 +128,6 @@ class GardenManager:
             score += len(self.plants) * 10
             return score
 
-    def stats_display(self):
-        ...
-
     @staticmethod
     def validate_heights() -> bool:
         for garden in GardenManager.gardens:
@@ -127,7 +135,7 @@ class GardenManager:
                 if plant.height <= 0:
                     return False
         return True
-    
+
     @classmethod
     def stats_display(cls):
         print(f"Height validation test: {cls.validate_heights()}")
@@ -141,7 +149,7 @@ class GardenManager:
         print(f"Total gardens managed: {cls.handleGardens}")
 
     @classmethod
-    def create_garden_network(cls, gardenList : list[Garden]):
+    def create_garden_network(cls, gardenList: list[Garden]):
         for garden in gardenList:
             cls.handleGardens += 1
             cls.gardens.append(garden)
@@ -162,6 +170,7 @@ def main() -> None:
     print()
     alice.garden_report()
     GardenManager.stats_display()
+
 
 if __name__ == "__main__":
     main()
