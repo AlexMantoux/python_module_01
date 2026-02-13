@@ -42,9 +42,9 @@ class PlantFactory:
             val tuple[str, int, int]: Table of values
         """
         PlantFactory.factoryPlant += 1
-        name: str = ""
-        height: int = 0
-        age: int = 0
+        name: str
+        height: int
+        age: int
         name, height, age = val
         return Plant(name, height, age)
 
