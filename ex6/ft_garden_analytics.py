@@ -164,6 +164,8 @@ class GardenManager:
 def main() -> None:
 
     bob = Garden("Bob")
+    bob.add_plant(Plant("tree", 82))
+
     alice = Garden("Alice")
     GardenManager.create_garden_network([alice, bob])
     print("=== Garden Management System Demo ===")
