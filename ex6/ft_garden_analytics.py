@@ -55,7 +55,7 @@ class Garden:
     def __init__(self, name: str) -> None:
         self.name: str = name
         self.plants: list[Plant | FloweringPlant | PrizeFlower] = []
-        self.total_growth = 0
+        self.total_growth: int = 0
 
     def add_plant(self, plant: Plant) -> None:
         self.plants.append(plant)

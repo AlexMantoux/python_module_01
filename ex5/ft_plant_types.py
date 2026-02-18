@@ -58,7 +58,7 @@ class Flower(Plant):
             color (str): The color of the flower.
         """
         super().__init__(name, height, age)
-        self.color = color
+        self.color: str = color
 
     def display(self) -> None:
         """
@@ -108,7 +108,7 @@ class Tree(Plant):
             trunk_diameter (int): The trunk diameter of the tree.
         """
         super().__init__(name, height, age)
-        self.trunk_diameter = trunk_diameter
+        self.trunk_diameter: int = trunk_diameter
 
     def display(self) -> None:
         """
